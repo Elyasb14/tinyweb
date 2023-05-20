@@ -30,7 +30,9 @@ def README():
 @app.route("/api_info.html")
 def api_info():
     return render_template('api_info.html', the_title='api info')
-    
 
+@app.route("/<string:file>/")
+def download_file(file): return send_file(f"tinyweather/data/{file}.csv")
+    
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)
