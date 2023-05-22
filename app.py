@@ -31,6 +31,7 @@ def README():
 def api_info():
     return render_template('api_info.html', the_title='api info')
 
+@app.route("/")
 @app.route("/<string:file>/")
 def download_file(file): return send_file(f"tinyweather/data/{file}.csv")
     
