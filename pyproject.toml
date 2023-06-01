@@ -1,12 +1,14 @@
 [build-system]
-requires = ["flit_core >=3.2,<4", "serial", "smbus", "datetime", "bme280"]
+requires = ["flit_core >=3.2,<4", "pyserial", "smbus", "flask", "pandas", "adafruit-circuitpython-bme680", "adafruit-circuitpython-busdevice", "adafruit-circuitpython-gps", "adafruit-circuitpython-lc709203f", "adafruit-circuitpython-max1704x", "adafruit-circuitpython-msa301", "adafruit-circuitpython-register", "adafruit-circuitpython-requests", "adafruit-circuitpython-tca9548a", "adafruit-circuitpython-typing", "Adafruit-PlatformDetect", "Adafruit-PureIO"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "tinyweb"
+name = "tinyweather"
 authors = [{name = "Elyas Bianchi", email = "elyasb99@gmail.com"}]
 readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 
+[project.urls]
+Home = "https://github.com/Elyasb14/tinyweb"
