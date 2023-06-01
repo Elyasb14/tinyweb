@@ -1,4 +1,4 @@
-from tinyweather.env import Rg15, Bme680
+from env import Rg15, Bme680
 
 rain = Rg15("/dev/ttyUSB0")
 env = Bme680()

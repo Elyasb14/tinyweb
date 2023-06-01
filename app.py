@@ -14,7 +14,7 @@ def index():
 def data():
     if request.method == 'POST':
         try:
-            script_output = subprocess.check_output(['python3', 'render_tinyweather_output.py'], universal_newlines=True)
+            script_output = subprocess.check_output(['python3', 'tinyweather/output.py'], universal_newlines=True)
             return render_template('data.html', output=script_output, the_title="data")
         except Exception as e:
             return render_template('data.html', output=f"Tinweather not responding, here is the error: {e}", the_title="data")
@@ -31,7 +31,7 @@ def README():
 def api_info():
     return render_template('api_info.html', the_title='api info')
 
-@app.route("/")
+@app.route("/", methods=["GET", "REQUEST"])
 @app.route("/<string:file>/")
 def download_file(file): return send_file(f"tinyweather/data/{file}.csv")
     
