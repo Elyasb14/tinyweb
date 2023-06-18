@@ -1,6 +1,6 @@
 import datetime
 import os
-import bme280
+# import bme280
 import board
 import adafruit_bme680
 import serial
@@ -56,33 +56,33 @@ class Rg15(serial.Serial):
             print(df)
             
 
-# BME280 sensor class
-class Bme280(bme280.BME280):
-    def __init__(self) -> None:
-        super().__init__()
+# # BME280 sensor class
+# class Bme280(bme280.BME280):
+#     def __init__(self) -> None:
+#         super().__init__()
         
-    def get_timestamp(self) -> dict:
-        '''gets timstamp'''
-        x = datetime.datetime.now()
-        keys = ["date", "time"]
-        return {value[0]: value[1] for value in zip(keys, x.strftime("%m/%d/%Y, %H:%M:%S").replace(",", "").split(" "))}
+#     def get_timestamp(self) -> dict:
+#         '''gets timstamp'''
+#         x = datetime.datetime.now()
+#         keys = ["date", "time"]
+#         return {value[0]: value[1] for value in zip(keys, x.strftime("%m/%d/%Y, %H:%M:%S").replace(",", "").split(" "))}
 
-    def parse_data(self): return self.get_timestamp() | {"temp (c)": self.get_temperature(), "pressure": self.get_pressure(), "hummidity": self.get_humidity()}
+#     def parse_data(self): return self.get_timestamp() | {"temp (c)": self.get_temperature(), "pressure": self.get_pressure(), "hummidity": self.get_humidity()}
 
-    def save_data(self, data: dict) -> dict:
-        """saves data to a csv with timestamp"""
-        df = pd.DataFrame([data])
-        if os.path.isfile(f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv"):
-            df.to_csv(
-                f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv", mode="a", header=False, index=False)
-            print(
-                f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv")
-            print(df)
+#     def save_data(self, data: dict) -> dict:
+#         """saves data to a csv with timestamp"""
+#         df = pd.DataFrame([data])
+#         if os.path.isfile(f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv"):
+#             df.to_csv(
+#                 f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv", mode="a", header=False, index=False)
+#             print(
+#                 f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv")
+#             print(df)
 
-        else:
-            df.to_csv(
-                f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv", mode="a", index=False)
-            print(df)
+#         else:
+#             df.to_csv(
+#                 f"/home/ebianchi/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme280.csv", mode="a", index=False)
+#             print(df)
             
 
 class Bme680(adafruit_bme680.Adafruit_BME680_I2C):

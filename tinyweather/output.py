@@ -11,7 +11,6 @@ for key, val in env_dict.items():
     print(key, val)
 
 print("\n")
-print("\n")
 
 print("rainfall")
 for key, val in rain_dict.items():
