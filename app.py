@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, send_file
 import subprocess
 from tinyweather.env import Rg15, Bme680
+from tinyweather.gps import Gps
 
 bme680 = Bme680()
 rain = Rg15("/dev/ttyUSB0")
+gps = Gps()
 
 app = Flask(__name__)
 
@@ -21,9 +23,17 @@ def data():
             # script_output = subprocess.check_output(['python3', 'tinyweather/output.py'], universal_newlines=True)
             bme680_dict = bme680.parse_data()
             rain_dict = rain.parse_data()
-            return render_template('data.html', output=bme680_dict, the_title="data")
+            gps_dict = gps.parse_data()
+            return render_template('data.html', 
+                                   bme680_dict=bme680_dict, 
+                                   rain_dict=rain_dict, 
+                                   gps_dict=gps_dict,
+                                   the_title="data"
+                                   )
         except Exception as e:
-            return render_template('data.html', output=f"Tinweather not responding, here is the error: {e}", the_title="data")
+            return render_template('data.html', output=f"Tinweather not responding, here is the error: {e}",
+                                   the_title="data"
+                                   )
     return render_template('data.html', the_title="data")
     
 

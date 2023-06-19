@@ -31,8 +31,15 @@
 <form action="/" method="POST">
     <button type="submit">Run Script</button>
 </form>
-{% if output %}
-    <div>{{ output }}</div>
-{% endif %}
+<div>
+  <p>Environmental Data</p>
+  <div>{{ bme680_dict }}</div>
+  <div>{{ rain_dict }}</div>
+</div>
+<div>
+  <p>Gps Data</p>
+  <div>{{ gps_dict }}</div>
+</div>
+
 
 {% endblock %}
