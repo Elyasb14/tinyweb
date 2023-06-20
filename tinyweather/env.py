@@ -43,15 +43,15 @@ class Rg15(serial.Serial):
     def save_data(self, data: list) -> dict:
         """saves data to a csv with timestamp"""
         df = pd.DataFrame([data])
-        if os.path.isfile(f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv"):
-            df.to_csv(f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", 
+        if os.path.isfile(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv"):
+            df.to_csv(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", 
                       header=False, mode="a", index=False)
             print(f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-rain.csv")
             print(df)
         else:
             print("debug")
             df.to_csv(
-                f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", mode="a", index=False)
+                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", mode="a", index=False)
             print(df)
             
             
@@ -73,14 +73,14 @@ class Bme680(adafruit_bme680.Adafruit_BME680_I2C):
     def save_data(self, data: dict):
         """saves data to a csv with timestamp"""
         df = pd.DataFrame([data])
-        if os.path.isfile(f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv"):
+        if os.path.isfile(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv"):
             df.to_csv(
-                f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", header=False, index=False)
+                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", header=False, index=False)
             print(
                 f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv")
             print(df)
         else:
             print("debug")
             df.to_csv(
-                f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", index=False)
+                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", index=False)
             print(df)
