@@ -1,0 +1,6 @@
+pandas
+flask
+uwsgi
+adafruit-curcuitpython-bme680
+adafruit-curcuitpython-gps
+pyserial
