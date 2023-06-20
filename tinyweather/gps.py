@@ -1,7 +1,8 @@
 import datetime
-from typing import Any
 import board
 import adafruit_gps
+import pandas as pd
+import os
 
 
 class Gps(adafruit_gps.GPS_GtopI2C):
@@ -31,5 +32,23 @@ class Gps(adafruit_gps.GPS_GtopI2C):
                                                "altitude": self.altitude_m,
                                                "num satelites": self.satellites}
     
-
+    
+    def save_data(self, data: dict):
+            """saves data to a csv with timestamp"""
+            df = pd.DataFrame([data])
+            if os.path.isfile(f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv"):
+                df.to_csv(
+                    f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", 
+                    mode="a", 
+                    header=False, 
+                    index=False
+                )
+                print(
+                    f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv")
+                print(df)
+            else:
+                print("debug")
+                df.to_csv(
+                    f"/home/ebianchi/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", mode="a", index=False)
+                print(df)
         

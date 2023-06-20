@@ -33,12 +33,22 @@
 </form>
 <div>
   <p>Environmental Data</p>
-  <div>{{ bme680_dict }}</div>
-  <div>{{ rain_dict }}</div>
+  <div>temp (c):  {{  temp  }}</div>
+  <div>pressure:  {{  pressure  }}</div>
+  <div>Hummidity:  {{  humid  }}</div>
+  <div>Gas:  {{  gas  }}</div>
+  <p>Rain Data</p>
+  <div>Acc:  {{  acc  }}</div>
+  <div>EventAcc:  {{  eventacc  }}</div>
+  <div>TotalAcc:  {{  totalacc  }}</div>
 </div>
 <div>
   <p>Gps Data</p>
-  <div>{{ gps_dict }}</div>
+  <div>lat:  {{ lat }}</div>
+  <div>lon:  {{ lon }}</div>
+  <div>Number of Sattelites:  {{ sattelites }}</div>
+
+
 </div>
 
 

@@ -10,7 +10,7 @@ TOKEN_WHITELIST = [token.OP, token.NAME, token.NUMBER, token.STRING]
 if __name__ == "__main__":
     headers = ["Name", "Lines", "Tokens/Line"]
     table = []
-    for path, subdirs, files in os.walk("."):
+    for path, subdirs, files in os.walk("tinyweather"):
         for name in files:
             if not name.endswith(".py"):
                 continue

@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, send_file
-import subprocess
 from tinyweather.env import Rg15, Bme680
 from tinyweather.gps import Gps
 
@@ -13,21 +12,27 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('index.html', the_title='tinyweather')
+    return render_template('index.html', lat=gps.parse_data()["lat"], lon=gps.parse_data()["lon"], the_title='tinyweather')
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/data.html')
 def data():
     if request.method == 'POST':
         try:
-            # script_output = subprocess.check_output(['python3', 'tinyweather/output.py'], universal_newlines=True)
             bme680_dict = bme680.parse_data()
             rain_dict = rain.parse_data()
             gps_dict = gps.parse_data()
             return render_template('data.html', 
-                                   bme680_dict=bme680_dict, 
-                                   rain_dict=rain_dict, 
-                                   gps_dict=gps_dict,
+                                   temp=bme680_dict["temp (c)"],
+                                   pressure=bme680_dict["pressure"],
+                                   humid=bme680_dict["hummidity"],
+                                   gas=bme680_dict["gas"],
+                                   acc=rain_dict["Acc"],
+                                   eventacc=rain_dict["EventAcc"],
+                                   totalacc=rain_dict["TotalAcc"],
+                                   lat=gps_dict["lat"],
+                                   lon=gps_dict["lon"],
+                                   sattelites=gps_dict["num satelites"],
                                    the_title="data"
                                    )
         except Exception as e:
@@ -53,3 +58,14 @@ def download_file(file): return send_file(f"tinyweather/data/{file}.csv")
     
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)
+
+
+
+
+# temp=bme680_dict["temp (c)"],
+#                                    pressure=bme680_dict["pressure"],
+#                                    humid=bme680_dict["humidity"],
+#                                    gas=bme680_dict["gas"],
+#                                    acc=rain_dict["Acc"],
+#                                    eventacc=rain_dict["EventAcc"],
+#                                    totalacc=rain_dict["TotalAcc"],
