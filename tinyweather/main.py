@@ -5,10 +5,6 @@ env = Bme680()
 rain = Rg15(dev="/dev/ttyUSB0")
 gps = Gps()
 
-
 env.save_data(env.parse_data())
 rain.save_data(rain.parse_data())
 gps.save_data(gps.parse_data())
-
-
-print(gps.parse_data())

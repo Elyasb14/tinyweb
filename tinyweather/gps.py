@@ -1,4 +1,5 @@
 import datetime
+from typing import Any
 import board
 import adafruit_gps
 import pandas as pd
