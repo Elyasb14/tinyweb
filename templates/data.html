@@ -29,7 +29,7 @@
   </nav>
 </div>
 <p>Use this page to view data from the tinyweather sensor platform.</p>
-<form action="/" method="POST">
+<form action="/data.html" method="POST">
     <button type="submit">Run Script</button>
 </form>
 <div>
@@ -43,14 +43,12 @@
   <div>EventAcc:  {{  eventacc  }}</div>
   <div>TotalAcc:  {{  totalacc  }}</div>
 </div>
-<div>
+<!-- <div>
   <p>Gps Data</p>
   <div>lat:  {{ lat }}</div>
   <div>lon:  {{ lon }}</div>
   <div>Number of Sattelites:  {{ sattelites }}</div>
-
-
-</div>
+</div> -->
 
 
 {% endblock %}

@@ -1,5 +1,4 @@
 import datetime
-from typing import Any
 import board
 import adafruit_gps
 import pandas as pd
@@ -19,13 +18,14 @@ class Gps(adafruit_gps.GPS_GtopI2C):
     
     def turn_off(self) -> None: self.send_command(b'PMTK314,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
     
-    def parse_data(self) -> dict: 
+    def parse_data(self) -> dict:
         while True:
             self.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
             self.send_command(b'PMTK314,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0')
             self.send_command(b"PMTK220,1000")
             self.update()
             if not self.has_fix:
+                print('waiting for fix')
                 continue
             else:
                 return self.get_timestamp() | {"lat": self.latitude, 
@@ -53,3 +53,7 @@ class Gps(adafruit_gps.GPS_GtopI2C):
                     f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", mode="a", index=False)
                 print(df)
         
+
+if __name__ == "__main__":
+    gps = Gps()
+    print(gps.parse_data())
