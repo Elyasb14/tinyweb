@@ -57,7 +57,7 @@ def api_info():
 @app.route('/downloads.html')
 def downloads():
     files = os.listdir('tinyweather/data')
-    return render_template('downloads.html', files=files)
+    return render_template('downloads.html', files=files, the_title="downloads")
 
 @app.route('/')
 @app.route('/select', methods = ['POST', 'GET'])
