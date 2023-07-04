@@ -1,18 +1,18 @@
 from flask import Flask, render_template, request, send_file
 from tinyweather.env import Rg15, Bme680
-# from tinyweather.gps import Gps
+from tinyweather.gps import Gps
 import os
 
 bme680 = Bme680()
 rain = Rg15("/dev/ttyUSB0")
-# gps = Gps()
+gps = Gps()
 
 app = Flask(__name__)
 
 # two decorators, same function
 @app.route('/')
 @app.route('/index.html')
-def index(): return render_template('index.html', the_title='tinyweather') #lat=gps.parse_data()["lat"], lon=gps.parse_data()["lon"])
+def index(): return render_template('index.html', the_title='tinyweather', lat=gps.parse_data()["lat"], lon=gps.parse_data()["lon"])
 
 
 @app.route('/data.html', methods=['POST', 'GET'])
@@ -21,7 +21,7 @@ def data():
         try:
             bme680_dict = bme680.parse_data()
             rain_dict = rain.parse_data()
-            # gps_dict = gps.parse_data()
+            gps_dict = gps.parse_data()
             return render_template('data.html', 
                                    temp=bme680_dict["temp (c)"],
                                    pressure=bme680_dict["pressure"],
@@ -30,9 +30,9 @@ def data():
                                    acc=rain_dict["Acc"],
                                    eventacc=rain_dict["EventAcc"],
                                    totalacc=rain_dict["TotalAcc"],
-                                #    lat=gps_dict["lat"],
-                                #    lon=gps_dict["lon"],
-                                #    sattelites=gps_dict["num satelites"],
+                                   lat=gps_dict["lat"],
+                                   lon=gps_dict["lon"],
+                                   sattelites=gps_dict["num satelites"],
                                    the_title="data"
                                    )
         except Exception as e:

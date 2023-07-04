@@ -25,7 +25,6 @@ class Gps(adafruit_gps.GPS_GtopI2C):
             self.send_command(b"PMTK220,1000")
             self.update()
             if not self.has_fix:
-                print('waiting for fix')
                 continue
             else:
                 return self.get_timestamp() | {"lat": self.latitude, 
