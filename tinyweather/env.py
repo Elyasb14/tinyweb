@@ -4,6 +4,8 @@ import board
 import adafruit_bme680
 import serial
 import pandas as pd
+from pathlib import Path
+
 
 
 i2c=board.I2C()
@@ -43,8 +45,9 @@ class Rg15(serial.Serial):
     def save_data(self, data: list) -> dict:
         """saves data to a csv with timestamp"""
         df = pd.DataFrame([data])
-        if os.path.isfile(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv"):
-            df.to_csv(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", 
+        path = Path(__file__).parent / 'data'
+        if os.path.isfile(path / f"{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv"):
+            df.to_csv(path / f"{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", 
                       header=False, mode="a", index=False)
             print(f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-rain.csv")
             print(df)
@@ -73,14 +76,14 @@ class Bme680(adafruit_bme680.Adafruit_BME680_I2C):
     def save_data(self, data: dict):
         """saves data to a csv with timestamp"""
         df = pd.DataFrame([data])
-        if os.path.isfile(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv"):
+        path = Path(__file__).parent / 'data'
+        if os.path.isfile(path / f"{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv"):
             df.to_csv(
-                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", header=False, index=False)
+                path / f"{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", header=False, index=False)
             print(
                 f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv")
             print(df)
         else:
-            print("debug")
             df.to_csv(
-                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", index=False)
+                path / f"{(self.get_timestamp()['date']).replace('/', '-')}-bme680.csv", mode="a", index=False)
             print(df)

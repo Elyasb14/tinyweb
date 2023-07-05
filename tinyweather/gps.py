@@ -3,7 +3,7 @@ import board
 import adafruit_gps
 import pandas as pd
 import os
-
+from pathlib import Path
 
 class Gps(adafruit_gps.GPS_GtopI2C):
     def __init__(self) -> None:
@@ -36,9 +36,10 @@ class Gps(adafruit_gps.GPS_GtopI2C):
     def save_data(self, data: dict):
             """saves data to a csv with timestamp"""
             df = pd.DataFrame([data])
-            if os.path.isfile(f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv"):
+            path = Path(__file__).parent / 'data'
+            if os.path.isfile(path / f"{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv"):
                 df.to_csv(
-                    f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", 
+                    path / f"{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", 
                     mode="a", 
                     header=False, 
                     index=False
@@ -49,7 +50,7 @@ class Gps(adafruit_gps.GPS_GtopI2C):
             else:
                 print("debug")
                 df.to_csv(
-                    f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", mode="a", index=False)
+                    path / f"{(self.get_timestamp()['date']).replace('/', '-')}-gps.csv", mode="a", index=False)
                 print(df)
         
 
