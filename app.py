@@ -15,6 +15,7 @@ def index():
     """Render the index.html template with the title and GPS coordinates."""
     return render_template('index.html', the_title='tinyweather', lat=gps.parse_data()["lat"], lon=gps.parse_data()["lon"])
 
+@app.route('/')
 @app.route('/data.html', methods=['POST', 'GET'])
 def data():
     """Render the data.html template with weather and GPS data.
@@ -65,7 +66,7 @@ def api_info():
 @app.route('/downloads.html')
 def downloads():
     """Render the downloads.html template with the list of files in the 'tinyweather/data' directory."""
-    files = os.listdir('tinyweather/data')
+    files = sorted(os.listdir('tinyweather/data'))
     return render_template('downloads.html', files=files, the_title="downloads")
 
 @app.route('/')

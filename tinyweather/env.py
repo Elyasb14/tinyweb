@@ -11,7 +11,7 @@ from pathlib import Path
 i2c=board.I2C()
 # rg15 rain gauge class
 class Rg15(serial.Serial):
-    def __init__(self, dev: str) -> None:
+    def __init__(self, dev: str = '/dev/ttyUSB0') -> None:
         super().__init__(dev, timeout=3)
 
     def reset_values(self): self.write(b"o\n")
@@ -34,7 +34,7 @@ class Rg15(serial.Serial):
         keys = ["date", "time"]
         return {value[0]: value[1] for value in zip(keys, x.strftime("%m/%d/%Y, %H:%M:%S").replace(",", "").split(" "))}
 
-    def get_data(self: serial.Serial) -> str:
+    def get_data(self) -> str:
         """reads data from rain gauge returns data as a string"""
         self.write(b"r\n")
         return self.readline().decode().strip("\r\n")
