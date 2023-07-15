@@ -22,29 +22,22 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="data.html">Data</a>
-    <a href="README.html">Docs</a>
     <a href="downloads.html">Download Data</a>
 
     <!-- Add more links here if needed -->
   </nav>
 </div>
 <p>Use this page to view data from the tinyweather sensor platform.</p>
-<form action="/data.html" method="POST">
-    <button type="submit">Run Script</button>
-</form>
-<div>
-  <p>Environmental Data</p>
+<p>Environmental Data</p>
   <div>temp (c):  {{  temp  }}</div>
   <div>pressure:  {{  pressure  }}</div>
   <div>Hummidity:  {{  humid  }}</div>
-  <div>Gas:  {{  gas  }}</div>
-  <p>Rain Data</p>
+  <div>Gas:  {{  gas  }}</div> 
+<p>Rain Data</p>
   <div>Acc:  {{  acc  }}</div>
   <div>EventAcc:  {{  eventacc  }}</div>
   <div>TotalAcc:  {{  totalacc  }}</div>
-</div>
-<div>
-  <p>Gps Data</p>
+<p>Gps Data</p>
   <div>lat:  {{ lat }}</div>
   <div>lon:  {{ lon }}</div>
   <div>Number of Sattelites:  {{ sattelites }}</div>

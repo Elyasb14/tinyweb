@@ -1,6 +1,6 @@
 pandas
 flask
 pyuwsgi
-adafruit-curcuitpython-bme680
-adafruit-curcuitpython-gps
+adafruit-circuitpython-bme680
+adafruit-circuitpython-gps
 pyserial

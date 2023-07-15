@@ -75,7 +75,7 @@ class Rg15(serial.Serial):
         else:
             print("debug")
             df.to_csv(
-                f"/home/{os.getlogin()}/tinyweb/tinyweather/data/{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", mode="a", index=False)
+                path / f"{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", mode="a", index=False)
             print(df)
             
             
@@ -94,7 +94,7 @@ class Bme680(adafruit_bme680.Adafruit_BME680_I2C):
         keys = ["date", "time"]
         return {value[0]: value[1] for value in zip(keys, x.strftime("%m/%d/%Y, %H:%M:%S").replace(",", "").split(" "))}
 
-    def parse_data(self):
+    def parse_data(self) -> dict:
         """Parse the data from the BME680 sensor.
 
         Returns:
