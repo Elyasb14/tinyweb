@@ -5,8 +5,8 @@ from gps import Gps
 
 env = Bme680()
 rain = Rg15()
-# gps = Gps()
+gps = Gps()
 
 env.save_data(env.parse_data())
 rain.save_data(rain.parse_data())
-# gps.save_data(gps.parse_data())
+gps.save_data(gps.parse_data())
