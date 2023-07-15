@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for
 from tinyweather.env import Rg15, Bme680
 # from tinyweather.gps import Gps
 import os
@@ -70,6 +70,11 @@ def select():
     """
     files = request.form.get('files')
     return send_file(f'tinyweather/data/{files}')
+
+@app.route('/refresh', methods=['POST'])
+def refresh():
+    # Any necessary processing can be done here
+    return redirect(url_for('data'))
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)

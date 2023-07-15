@@ -28,6 +28,9 @@
   </nav>
 </div>
 <p>Use this page to view data from the tinyweather sensor platform.</p>
+<form method="POST" action="/refresh">
+  <button type="submit">Refresh</button>
+</form>
 <p>Environmental Data</p>
   <div>temp (c):  {{  temp  }}</div>
   <div>pressure:  {{  pressure  }}</div>
