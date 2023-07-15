@@ -17,4 +17,4 @@ rain.save_data(rain.parse_data())
 gps.save_data(gps.parse_data())
 ```
 
-when you run cron.sh, this program will automatically save data to a daily csv every 30 seconds. you can change this frequency by modifying the **cron.sh** file
+when you run cron.sh, this program will automatically save data to a daily csv every 120 seconds. you can change this frequency by modifying the **cron.sh** file
