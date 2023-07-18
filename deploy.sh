@@ -10,6 +10,7 @@ sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev p
 python3 -m venv .venv
 source .venv/bin/activate
 
+sudo chmod -R a+rwx .venv
 pip3 install -r requirements.txt
 
 deactivate
@@ -71,9 +72,3 @@ server {
 sudo ln -s /etc/nginx/sites-available/tinyweb /etc/nginx/sites-enabled
 
 sudo nginx -t
-
-crontab -l > crontab_new 
-echo "* * * * * sleep 0s && python3 /home/ebianchi/tinyweb/tinyweather/main.py" >> crontab_new
-echo " * * * * sleep 30s && python3 /home/ebianchi/tinyweb/tinyweather/main.py" >> crontab_new
-crontab crontab_new
-rm crontab_new
