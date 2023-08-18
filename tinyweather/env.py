@@ -73,7 +73,6 @@ class Rg15(serial.Serial):
             print(f"saved to {(self.get_timestamp()['date']).replace('/', '-')}-rain.csv")
             print(df)
         else:
-            print("debug")
             df.to_csv(
                 path / f"{(self.get_timestamp()['date']).replace('/', '-')}-rain.csv", mode="a", index=False)
             print(df)
