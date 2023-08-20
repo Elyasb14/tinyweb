@@ -1,5 +1,7 @@
 #!/bin/bash
 
+user="$USER"
+
 sudo apt update && sudo apt upgrade
 sudo rm /etc/systemd/system/tinyweb.service
 sudo rm /etc/nginx/sites-available/tinyweb
@@ -39,17 +41,17 @@ Description=uWSGI instance to serve tinyweb
 After=network.target
 
 [Service]
-User=ebianchi
+User=$user
 Group=www-data
-WorkingDirectory=/home/ebianchi/tinyweb
-Environment="PATH=/home/ebianchi/tinyweb/.venv/bin"
-ExecStart=/home/ebianchi/tinyweb/.venv/bin/uwsgi --ini tinyweb.ini
+WorkingDirectory=/home/$user/tinyweb
+Environment="PATH=/home/$user/tinyweb/.venv/bin"
+ExecStart=/home/$user/tinyweb/.venv/bin/uwsgi --ini tinyweb.ini
 
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/tinyweb.service
 
-sudo chgrp www-data /home/ebianchi
+sudo chgrp www-data /home/$user
 
 sudo systemctl start tinyweb
 
@@ -64,7 +66,7 @@ server {
 
     location / {
         include uwsgi_params;
-        uwsgi_pass unix:/home/ebianchi/tinyweb/tinyweb.sock;
+        uwsgi_pass unix:/home/$user/tinyweb/tinyweb.sock;
     }
 }
 " >> /etc/nginx/sites-available/tinyweb
