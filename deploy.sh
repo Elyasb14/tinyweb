@@ -1,6 +1,6 @@
 #!/bin/bash
 
-user="$USER"
+user=ebianchi
 
 sudo apt update && sudo apt upgrade
 sudo rm /etc/systemd/system/tinyweb.service

@@ -4,3 +4,5 @@ pyuwsgi
 adafruit-circuitpython-bme680
 adafruit-circuitpython-gps
 pyserial
+flask-restful
+

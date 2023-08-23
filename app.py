@@ -1,13 +1,23 @@
-from flask import Flask, render_template, request, send_file, redirect, url_for
+from flask import Flask, jsonify, render_template, request, send_file, redirect, url_for
+from flask_restful import Resource, Api
 from tinyweather.env import Rg15, Bme680
 #from tinyweather.gps import Gps
 import os
 
 bme680 = Bme680()
-rain = Rg15()
+#rain = Rg15()
 #gps = Gps()
 
 app = Flask(__name__)
+api = Api(app)
+
+class RawData(Resource):
+    def get(self):
+        global bme680
+        bme680_dict = bme680.parse_data()
+        # rain_dict = rain.parse_data()
+        return jsonify(bme680_dict)
+
 
 @app.route('/')
 @app.route('/index.html')
@@ -75,6 +85,8 @@ def select():
 def refresh():
     # Any necessary processing can be done here
     return redirect(url_for('data'))
+
+api.add_resource(RawData, '/api/raw_data')
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)
