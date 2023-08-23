@@ -16,7 +16,7 @@ sudo chmod -R a+rwx .venv
 pip3 install -r requirements.txt
 
 deactivate
-
+sudo rm tinyweb.ini
 touch tinyweb.ini
 
 echo "
