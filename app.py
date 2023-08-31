@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, send_file, redirect, url_for
+from flask import Flask, render_template, request, send_file, redirect, url_for
 from tinyweather.env import Rg15, Bme680
 from flask_restful import Api
 from api import RawData, Env, Rain
@@ -57,9 +57,9 @@ def select():
 def refresh():
     return redirect(url_for('data'))
 
-api.add_resource(RawData, '/api/raw_data')
-api.add_resource(Rain, '/api/env')
-api.add_resource(Env, '/api/rain')
+api.add_resource(RawData, '/raw_data')
+api.add_resource(Env, '/env')
+api.add_resource(Rain, '/rain')
 
 
 if __name__ == '__main__':
