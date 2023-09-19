@@ -8,6 +8,7 @@ tinyweb is a web server along with a data gathering and parsing engine. written 
 ## installation
 
 ```bash
+git clone https://github.com/Elyasb14/tinyweb.git
 cd tinyweb
 chmod +x deploy.sh
 chmod +x cron.sh
