@@ -56,6 +56,7 @@ class Rg15(serial.Serial):
         except ValueError:
             print("invalid response from device")
             return self.get_timestamp()
+        
     def save_data(self, data: list) -> dict:
         """Save data to a CSV file with a timestamp.
 

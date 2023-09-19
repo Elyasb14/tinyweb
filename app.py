@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, send_file, redirect, url_for
 from tinyweather.env import Rg15, Bme680
 from flask_restful import Api
@@ -29,9 +30,6 @@ def data():
                             acc=rain_dict["Acc"],
                             eventacc=rain_dict["EventAcc"],
                             totalacc=rain_dict["TotalAcc"],
-                        #    lat=gps_dict["lat"],
-  #                          lon=gps_dict["lon"],
-   #                         sattelites=gps_dict["num satelites"],
                             the_title="data"
                             )
 
