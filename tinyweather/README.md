@@ -17,4 +17,4 @@ rain.save_data(rain.parse_data())
 gps.save_data(gps.parse_data())
 ```
 
-when you run **cron.sh** from the root directory of tinyweb, this program will automatically save data to a csv every 120 seconds, with a new csv being created daily. you can change this frequency by modifying the **cron.sh** file.
+when you run **cron.sh** from the root directory of tinyweb, this program will automatically save data to a csv every 300 seconds, with a new csv being created daily. you can change this frequency by modifying the **cron.sh** file.
