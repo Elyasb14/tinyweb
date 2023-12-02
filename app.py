@@ -4,6 +4,8 @@ from tinyweather.env import Rg15, Bme680
 from flask_restful import Api
 from api import RawData, Env, Rain
 import os
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from prometheus_client import make_wsgi_app, Gauge
 
 bme680 = Bme680()
 rain = Rg15()
@@ -11,6 +13,18 @@ rain = Rg15()
 app = Flask(__name__)
 api = Api(app)
 
+METRICS = {
+    "temperature": Gauge(
+        "temperature", "temperature"
+    ),
+}
+
+def env_metric(): 
+    bme_680_dict = bme680.parse_data()
+    temp = float(bme_680_dict["temp (c)"])
+    METRICS["temperature"].set(temp)
+
+env_metric()
 
 @app.route('/')
 @app.route('/index.html')
@@ -55,10 +69,18 @@ def select():
 def refresh():
     return redirect(url_for('data'))
 
+app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
+    '/metrics': make_wsgi_app()
+})
+
+
 api.add_resource(RawData, '/raw_data')
 api.add_resource(Env, '/env')
 api.add_resource(Rain, '/rain')
 
 
 if __name__ == '__main__':
+    app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
+    '/metrics': make_wsgi_app()
+    })
     app.run(debug=True, host="0.0.0.0", port=5001)
