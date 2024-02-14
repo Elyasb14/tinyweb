@@ -6,8 +6,6 @@ import serial
 import pandas as pd
 from pathlib import Path
 
-
-
 i2c=board.I2C()
 # rg15 rain gauge class
 class Rg15(serial.Serial):
@@ -17,19 +15,9 @@ class Rg15(serial.Serial):
     def reset_values(self): self.write(b"o\n")
 
     def set_mode(self, mode: str): 
-        """Set the mode of the rain gauge.
-
-        Args:
-            mode: The mode to set for the rain gauge.
-        """
-        self.write(f"{mode}\n".encode())
+      self.write(f"{mode}\n".encode())
 
     def get_timestamp(self) -> dict:
-        """Get the current timestamp.
-
-        Returns:
-            A dictionary containing the date and time.
-        """
         x = datetime.datetime.now()
         keys = ["date", "time"]
         return {value[0]: value[1] for value in zip(keys, x.strftime("%m/%d/%Y, %H:%M:%S").replace(",", "").split(" "))}
